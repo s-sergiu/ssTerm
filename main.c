@@ -32,6 +32,11 @@ int main(void)
 				buff_width += 13;
 				buff_ctr = 0;
 			}
+			else if (event.xkey.keycode == 65)
+			{
+				XClearArea(dpy, w, buff_ctr, buff_width + 2, 15, 5, 0);
+				buff_ctr += 7;
+			}
 			else
 			{
 				printf("Key detail: %d\n", event.xkey.keycode);
