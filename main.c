@@ -10,6 +10,8 @@ int main(void)
 	int s;
 	char buf[1];
 	int buff_ctr;
+	int buff_width;
+	KeySym key;
 
 	dpy = XOpenDisplay(NULL);
 	s = DefaultScreen(dpy);
@@ -18,32 +20,31 @@ int main(void)
 	XMapWindow(dpy, w);
 	buf[0] = 'a';
 	buff_ctr = 0;
+	buff_width = 50;
 	while (1)
 	{
 		XNextEvent(dpy, &event);
 		if (event.type == Expose)
-		{
 			XClearWindow(dpy, w);
-			XDrawString(dpy, w, DefaultGC(dpy, s), 10, 50, buf, 1);
-		}
 		if (event.type == KeyPress)
 		{
-			if (event.xkey.keycode == 0x18)
+			if (event.xkey.keycode == 36)
 			{
-				buf[0] = 'q';
-				buff_ctr += 7;
-				XDrawString(dpy, w, DefaultGC(dpy, s), 10 + buff_ctr, 50, buf, 1);
+				buff_width += 13;
+				buff_ctr = 0;
 			}
-			else if (event.xkey.keycode == 0x19)
+			else
 			{
-				buf[0] = 'w';
+				printf("Key detail: %d\n", event.xkey.keycode);
 				buff_ctr += 7;
-				XDrawString(dpy, w, DefaultGC(dpy, s), 10 + buff_ctr, 50, buf, 1);
+				key = XKeycodeToKeysym(dpy, event.xkey.keycode, 0);
+				XDrawString(dpy, w, DefaultGC(dpy, s), 10 + buff_ctr, buff_width, XKeysymToString(key), 1);
 			}
-			else if (event.xkey.keycode == 0x09)
-			{
+			if (event.xkey.keycode == 9)
 				break ;
-			}
+			XClearArea(dpy, w, buff_ctr, buff_width + 2, 15, 5, 0);
+		//	XFillRectangle(dpy, w, DefaultGC(dpy, s), buff_ctr + 18, buff_width, 3, 1);
+			XDrawLine(dpy, w, DefaultGC(dpy, s), buff_ctr + 17, buff_width + 2, buff_ctr + 20, buff_width + 2);
 		}
 	}
 	XCloseDisplay(dpy);
