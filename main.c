@@ -28,6 +28,7 @@ int main(void)
 		{
 			if (event.xkey.keycode == 36)
 			{
+				XClearArea(dpy, w, buff_ctr + 17, buff_width + 2, 15, 5, 0);
 				buff_width += 13;
 				buff_ctr = 0;
 			}
