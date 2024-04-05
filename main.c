@@ -8,7 +8,6 @@ int main(void)
 	Display *dpy;	
 	Window w;
 	int s;
-	char buf[1];
 	int buff_ctr;
 	int buff_width;
 	KeySym key;
@@ -18,7 +17,6 @@ int main(void)
 	w = XCreateSimpleWindow(dpy, DefaultRootWindow(dpy), 10, 10, 100, 100, 1, BlackPixel(dpy, s), WhitePixel(dpy, s));
 	XSelectInput(dpy, w, ExposureMask | KeyPressMask);
 	XMapWindow(dpy, w);
-	buf[0] = 'a';
 	buff_ctr = 0;
 	buff_width = 50;
 	while (1)
