@@ -1,6 +1,6 @@
 NAME = ssTerm
 LDLIBS += `pkg-config --libs x11`
-CFLAGS += -std=c99 -Wall -Wextra `pkg-config --cflags x11`
+CFLAGS += -Werror -Wall -Wextra `pkg-config --cflags x11`
 
 all: main.c
 	cc $(CFLAGS) $(LDLIBS) main.c -o $(NAME)
