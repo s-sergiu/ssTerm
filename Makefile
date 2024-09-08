@@ -1,11 +1,15 @@
+NAME = ssTerm
 LDLIBS += `pkg-config --libs x11`
 CFLAGS += -std=c99 -Wall -Wextra `pkg-config --cflags x11`
 
-all: main
-
-eduterm: main.c
+all: main.c
+	cc $(CFLAGS) $(LDLIBS) main.c -o $(NAME)
 
 clean:
-	rm main
+
+fclean: clean 
+	rm $(NAME)
+
+re : fclean all
 
 .PHONY: all clean
