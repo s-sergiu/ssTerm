@@ -15,7 +15,6 @@ int open_pty_pair (int *amaster, int *aslave) {
 
   grantpt (master);
   unlockpt (master);
-
   name = ptsname(master);
   slave = open(name, O_RDWR);
 
